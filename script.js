@@ -1,45 +1,8 @@
-import{initializeApp} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-import {getDatabase,ref,set,onValue} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyBK01mjixTNVeuIAMNvgyeGHd6zvYNViP0",
-    authDomain: "tictactoestrawberry.firebaseapp.com",
-    databaseURL: "https://tictactoestrawberry-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tictactoestrawberry",
-    storageBucket: "tictactoestrawberry.firebasestorage.app",
-    messagingSenderId: "339194936749",
-    appId: "1:339194936749:web:b0b5b9f3dcc06e2fd2f524"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db=getDatabase(app);
-
-
-
-
-const db=window.firebaseDB;
-
-
 let clickCount = 0;
 let gameOver = false;
 const grid = Array(3).fill(null).map(() => Array(3).fill(null));
 const squares = document.querySelectorAll(".square");
 const popup = document.querySelector(".popup");
-
-onValue(ref(db,"game/moves"),(snapshot)=>{
-    if(snapshot.exists()){
-        const move=snapshot.vak();
-        const index=move.row*3+move.col;
-        const square=squares[index];
-
-        if(!square.querySelector("img")){
-            const img=document.createElement("img");
-            img.src=move.imgSrc;
-            img.alt="Player Moe";
-            square.appendChild(img);
-        }
-    }
-});
 
 squares.forEach((square, index) => {
     square.addEventListener("click", function () {
@@ -50,14 +13,6 @@ squares.forEach((square, index) => {
         const isOddTurn = clickCount % 2 === 0;
         const imgSrc = isOddTurn ? "images/strb.jpg" : "images/rabbit.jpg";
         grid[row][col] = isOddTurn ? "Player 1" : "Player 2"; // Track player
-
-
-        set(ref(db,"game/moves"),{
-            row:row,
-            col:col,
-            player:isOddTurn? "Player 1":"Player 2",
-            imgSrc:imgSrc
-        });
 
         const img = document.createElement("img");
         img.src = imgSrc;
