@@ -87,15 +87,15 @@ body {
 }
 
 .inner-box{
-    width: min(75vw,500px);
+    width: min(77vw,500px);
     height:auto;
     aspect-ratio:1/1;
     background-color: rgba(255, 255, 255, 0.55);
     border-radius: 20px;
     border: 1px solid rgb(255, 255, 255);
     position: absolute;
-    bottom:15%;
-    left: 5%;
+    top:15vh;
+    left: min(5%,30px);
     display:grid;
     grid-template-columns:repeat(3,1fr);
     grid-template-rows:repeat(3,1fr);
